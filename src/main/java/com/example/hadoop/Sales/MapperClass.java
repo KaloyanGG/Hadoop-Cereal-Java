@@ -1,4 +1,4 @@
-package com.example.hadoop;
+package com.example.hadoop.Sales;
 
 import java.io.IOException;
 
@@ -18,7 +18,6 @@ public class MapperClass extends MapReduceBase
 	
 	@Override
 	public void configure(JobConf job) {
-		System.out.println("CONFIGURING...");
 		country = job.get("country", "");
 	}
 

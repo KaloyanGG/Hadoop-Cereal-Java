@@ -1,9 +1,5 @@
-package com.example.hadoop;
+package com.example.hadoop.CaloriesPerGram;
 
-import java.io.IOException;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 
@@ -19,28 +15,34 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RunningJob;
 import org.apache.hadoop.mapreduce.v2.app.webapp.App;
 
-public class RunnerClass {
+import com.example.hadoop.Sales.MapperClass;
+import com.example.hadoop.Sales.ReducerClass;
 
-	public static void run(String inp) {
-		Configuration conf = new Configuration();
+public class RunnerClassCpg {
+    public static void run(String name, String protein, String sugars){
 
-		JobConf job = new JobConf(conf, App.class);
+        Configuration conf = new Configuration();
+        JobConf job = new JobConf(conf, App.class);
 
-		job.set("country", inp);
+		job.set("name", name);
+        job.set("protein", protein);
+        job.set("sugars", sugars);
+
 		job.setOutputKeyClass(Text.class);
-		job.setOutputValueClass(DoubleWritable.class);
-		job.setMapperClass(MapperClass.class);
-		job.setReducerClass(ReducerClass.class);
+		job.setOutputValueClass(Text.class);
 
-		Path input = new Path("hdfs://127.0.0.1:9000/uni_input/SalesJan2009.csv");
+		job.setMapperClass(MapperClassCpg.class);
+		job.setReducerClass(ReducerClassCpg.class);
+
+		Path input = new Path("/Users/I590201/Projects/Uni/GolemiDanni/stu2001321033/src/main/resources/cereal.csv");
 		// Path output = new Path("hdfs://127.0.0.1:9000/uni_output/sales_result");
 		Path output = new Path("output");
 
 		FileInputFormat.setInputPaths(job, input);
 		FileOutputFormat.setOutputPath(job, output);
 
-		try {
-			FileSystem fs = FileSystem.get(URI.create("hdfs://127.0.0.1:9000"), conf);
+        try {
+			FileSystem fs = FileSystem.get(URI.create("/Users/I590201/Projects/Uni/GolemiDanni/stu2001321033"), conf);
 
 			if (fs.exists(output))
 				fs.delete(output, true);
@@ -54,5 +56,7 @@ public class RunnerClass {
 			e.printStackTrace();
 		}
 
-	}
+        
+
+    }
 }

@@ -1,5 +1,4 @@
-package com.example.hadoop;
-
+package com.example.hadoop.Sales;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -12,17 +11,17 @@ import org.apache.hadoop.mapred.Reducer;
 import org.apache.hadoop.mapred.Reporter;
 
 public class ReducerClass extends MapReduceBase
-	implements Reducer<Text,DoubleWritable,Text,DoubleWritable>{
+		implements Reducer<Text, DoubleWritable, Text, DoubleWritable> {
 
 	@Override
 	public void reduce(Text key, Iterator<DoubleWritable> values, OutputCollector<Text, DoubleWritable> output,
 			Reporter reporter) throws IOException {
 		double sum = 0;
-		
-		while(values.hasNext()) {
+
+		while (values.hasNext()) {
 			sum += values.next().get();
 		}
-		
+
 		output.collect(key, new DoubleWritable(sum));
 	}
 
