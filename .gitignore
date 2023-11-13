@@ -19,3 +19,4 @@ buildNumber
 target
 .vscode/settings.json
 build
+output/

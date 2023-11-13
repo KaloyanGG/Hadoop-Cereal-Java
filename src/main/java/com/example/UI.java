@@ -58,7 +58,7 @@ public class UI extends JFrame {
                 search();
             }
         });
-        panel.add(new JLabel()); // Empty cell
+        panel.add(new JLabel()); 
         panel.add(searchButton);
 
         add(panel);

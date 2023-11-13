@@ -1,0 +1,1 @@
+hadoop fs -cat /calories-per-gram/result/part-00000

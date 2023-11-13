@@ -15,8 +15,6 @@ import org.apache.hadoop.mapred.JobConf;
 import org.apache.hadoop.mapred.RunningJob;
 import org.apache.hadoop.mapreduce.v2.app.webapp.App;
 
-import com.example.hadoop.Sales.MapperClass;
-import com.example.hadoop.Sales.ReducerClass;
 
 public class RunnerClassLB {
     public static void run(String name, String protein, String sugars, String calories){
@@ -35,15 +33,16 @@ public class RunnerClassLB {
 		job.setMapperClass(MapperClassLB.class);
 		job.setReducerClass(ReducerClassLB.class);
 
-		Path input = new Path("/Users/I590201/Projects/Uni/GolemiDanni/stu2001321033/src/main/resources/cereal.csv");
-		// Path output = new Path("hdfs://127.0.0.1:9000/uni_output/sales_result");
-		Path output = new Path("output");
+		// Path input = new Path("/Users/I590201/Projects/Uni/GolemiDanni/stu2001321033/src/main/resources/cereal.csv");
+		Path input = new Path ("hdfs://127.0.0.1:9000/cereal.csv");
+		// Path output = new Path("output");
+		Path output = new Path("hdfs://127.0.0.1:9000/list-breakfasts/result");
 
 		FileInputFormat.setInputPaths(job, input);
 		FileOutputFormat.setOutputPath(job, output);
 
         try {
-			FileSystem fs = FileSystem.get(URI.create("/Users/I590201/Projects/Uni/GolemiDanni/stu2001321033"), conf);
+			FileSystem fs = FileSystem.get(URI.create("hdfs://127.0.0.1:9000/list-breakfasts"), conf);
 
 			if (fs.exists(output))
 				fs.delete(output, true);

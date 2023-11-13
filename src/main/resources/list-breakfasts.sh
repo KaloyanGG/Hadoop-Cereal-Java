@@ -1,0 +1,1 @@
+hadoop fs -cat /list-breakfasts/result/part-00000
